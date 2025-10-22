@@ -44,7 +44,7 @@ stages:
 - stage: BuildVS
   pool: sonicso1ES-amd64
   jobs:
-  - template: azure-pipelines-build.yml
+  - template: .azure-pipelines/azure-pipelines-build.yml
     parameters:
       buildOptions: 'USERNAME=admin SONIC_BUILD_JOBS=$(nproc) BUILD_MULTIASIC_KVM=y INCLUDE_DHCP_SERVER=y ${{ variables.VERSION_CONTROL_OPTIONS }}'
       jobGroups:
@@ -54,7 +54,7 @@ stages:
   pool: sonicso1ES-amd64
   dependsOn: []
   jobs:
-  - template: azure-pipelines-build.yml
+  - template: .azure-pipelines/azure-pipelines-build.yml
     parameters:
       buildOptions: 'USERNAME=admin SONIC_BUILD_JOBS=$(nproc) ${{ variables.VERSION_CONTROL_OPTIONS }}'
       jobGroups:
@@ -103,7 +103,7 @@ stages:
     condition: false # agent pool don't work. disable this job to unblock PRs.
     timeoutInMinutes: 60
     steps:
-    - template: cleanup.yml
+    - template: .azure-pipelines/cleanup.yml
     - checkout: self
       clean: true
       submodules: recursive
