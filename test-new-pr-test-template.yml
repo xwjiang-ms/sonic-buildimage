@@ -14,7 +14,7 @@ resources:
   - repository: sonic-mgmt
     type: github
     name: xwjiang-ms/sonic-mgmt
-    ref: add_pre_defined_pr
+    ref: add_build_id_param
     endpoint: sonic-net
   - repository: buildimage
     type: github
