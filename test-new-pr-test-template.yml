@@ -27,6 +27,10 @@ parameters:
   type: number
   default: 480
 
+- name: CHECKOUT_SONIC_MGMT
+  type: boolean
+  default: true
+
 variables:
 - name: CACHE_MODE
   value: rcache
