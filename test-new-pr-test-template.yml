@@ -42,6 +42,7 @@ variables:
   ${{ else }}:
     value: $(Build.SourceBranchName)
 
+stages:
 - stage: Test
   variables:
   - group: SONiC-Elastictest
