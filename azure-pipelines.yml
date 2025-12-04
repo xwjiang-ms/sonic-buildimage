@@ -41,6 +41,10 @@ parameters:
   type: number
   default: 480
 
+- name: CHECKOUT_SONIC_MGMT
+  type: boolean
+  default: true
+
 variables:
 - template: .azure-pipelines/azure-pipelines-repd-build-variables.yml@buildimage
 - template: .azure-pipelines/template-variables.yml@buildimage
