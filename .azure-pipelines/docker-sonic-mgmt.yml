@@ -144,7 +144,7 @@ stages:
       CHECKOUT_SONIC_MGMT: true
       # todo: enable vpp build in sonic-mgmt docker image build pipeline, and add vpp test pipeline back.
       INCLUDE_JOBS: "all"
+      STOP_ON_FAILURE: "False"
       OVERRIDE_PARAMS:
         REPO_NAME: "sonic-mgmt"
         SETUP_CONTAINER_PARAMS: "-i ${{ parameters.registry_url }}/docker-sonic-mgmt:lastbuild"
-        STOP_ON_FAILURE: "False"
