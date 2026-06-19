@@ -4,29 +4,16 @@
 # https://aka.ms/yaml
 # Build and push sonic-mgmt image
 
-schedules:
-- cron: "0 8 * * *"
-  branches:
-    include:
-    - master
-  always: true
-
+pr: none
 trigger: none
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - dockers/docker-sonic-mgmt
 
 resources:
   repositories:
   - repository: sonic-mgmt
     type: github
-    name: sonic-net/sonic-mgmt
-    ref: master
-    endpoint: sonic-net
+    name: xwjiang-ms/sonic-mgmt
+    ref: ai-fix-base-ansible-failed-key
+    endpoint: xwjiang-ms
 
 parameters:
 - name: registry_url
@@ -160,33 +147,4 @@ stages:
       OVERRIDE_PARAMS:
         REPO_NAME: "sonic-mgmt"
         SETUP_CONTAINER_PARAMS: "-i ${{ parameters.registry_url }}/docker-sonic-mgmt:lastbuild"
-
-- stage: Publish
-  dependsOn: Test
-  condition: and(not(canceled()), in(dependencies.Test.result, 'Succeeded', 'SucceededWithIssues'))
-  jobs:
-  - job: PublishAsLatest
-    pool: sonicso1ES-amd64
-    timeoutInMinutes: 60
-    steps:
-    - download: current
-      artifact: 'docker-sonic-mgmt'
-      displayName: "Download docker-sonic-mgmt image"
-
-    - bash: |
-        set -ex
-        docker load -i $(Pipeline.Workspace)/docker-sonic-mgmt/target/docker-sonic-mgmt.gz
-        docker tag docker-sonic-mgmt:latest $REGISTRY_SERVER/docker-sonic-mgmt:latest
-        docker images
-      env:
-        REGISTRY_SERVER: ${{ parameters.registry_url }}
-      displayName: 'Load and tag docker-sonic-mgmt as latest'
-
-    - task: Docker@2
-      displayName: 'Push docker-sonic-mgmt:latest to registry'
-      condition: succeeded()
-      inputs:
-        containerRegistry: ${{ parameters.registry_conn }}
-        repository: docker-sonic-mgmt
-        command: push
-        tags: latest
+        STOP_ON_FAILURE: "False"
