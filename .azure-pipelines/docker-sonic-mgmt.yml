@@ -12,7 +12,7 @@ resources:
   - repository: sonic-mgmt
     type: github
     name: xwjiang-ms/sonic-mgmt
-    ref: ai-fix-base-ansible-failed-key
+    ref: master
     endpoint: xwjiang-ms
 
 parameters:
@@ -77,7 +77,7 @@ stages:
   variables:
   - group: SONiC-Elastictest
   - name: BUILD_BRANCH
-    value: $(Build.SourceBranchName)
+    value: master
   jobs:
   - job: sbom_vuln_scan
     displayName: "[OPTIONAL] SBOM-based vulnerability scan (docker-sonic-mgmt)"
